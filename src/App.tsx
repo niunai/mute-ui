@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import setting from "./setting.json";
 
 function App() {
+  const [isLoading, setLoading] = useState(true);
   const [isMute, setMute] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
 
@@ -18,6 +19,7 @@ function App() {
       .then((data) => {
         setMute(JSON.parse(data.mute));
         setAlertMsg("mute is " + data.mute);
+        setLoading(false);
       })
       .catch((err) => {
         setAlertMsg(err.message);
@@ -53,7 +55,7 @@ function App() {
       <Box
         sx={{
           marginTop: 3,
-          display: "flex",
+          display: isLoading ? 'none' : 'flex',
           flexDirection: "column",
           alignItems: "center",
         }}>
